@@ -1,0 +1,16 @@
+﻿@model IEnumerable<string>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>Databases</h2>
+<table>
+@foreach (string database in ViewBag.Databases)
+{
+    <tr>
+        <td>
+            @Html.ActionLink(database, "View", new { database = database }, "Database");
+        </td>
+    </tr>
+}
+</table>

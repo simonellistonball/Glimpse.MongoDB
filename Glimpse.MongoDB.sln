@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.MongoDB", "Glimpse.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glimpse.MongoDB.Test", "Glimpse.MongoDB.Test\Glimpse.MongoDB.Test.csproj", "{C49D4B70-7BAA-440A-A0F2-DD15D76DEDB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApplication", "SampleApplication\SampleApplication.csproj", "{473EBC42-1F00-4547-A3D0-0E0261F87773}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAppliction", "SampleAppliction\SampleAppliction.csproj", "{CF0F3FCB-7465-4AC1-945C-12C3D28D345B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,10 @@ Global
 		{C49D4B70-7BAA-440A-A0F2-DD15D76DEDB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C49D4B70-7BAA-440A-A0F2-DD15D76DEDB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C49D4B70-7BAA-440A-A0F2-DD15D76DEDB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{473EBC42-1F00-4547-A3D0-0E0261F87773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{473EBC42-1F00-4547-A3D0-0E0261F87773}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{473EBC42-1F00-4547-A3D0-0E0261F87773}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{473EBC42-1F00-4547-A3D0-0E0261F87773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF0F3FCB-7465-4AC1-945C-12C3D28D345B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF0F3FCB-7465-4AC1-945C-12C3D28D345B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF0F3FCB-7465-4AC1-945C-12C3D28D345B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF0F3FCB-7465-4AC1-945C-12C3D28D345B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

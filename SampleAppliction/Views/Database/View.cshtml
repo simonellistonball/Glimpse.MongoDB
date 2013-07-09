@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string database = ViewBag.database;
+}
+<h2>
+    @Html.ActionLink(database, "View", "Database", new { database = database }, null)
+    &raquo; 
+    Collections
+</h2>
+<table>
+@foreach (string collection in ViewBag.Collections)
+{
+    <tr>
+        <td>
+            @Html.ActionLink(collection, "View", "Collection", new { database = database, collection = collection }, null)            
+        </td>
+    </tr>
+}
+</table>

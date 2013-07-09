@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string database = ViewBag.database;
+    string collection = ViewBag.collection;
+}
+
+<h2>
+    @Html.ActionLink(database, "View", "Database", new { database = database }, null)
+    &raquo; 
+    @Html.ActionLink(collection, "View", "Collection", new { database = database, collection = collection }, null)
+    &raquo; 
+    Documents
+</h2>
+
+<table>
+@using MongoDB.Bson
+@foreach (BsonDocument document in ViewBag.Documents)
+{
+   <tr>
+       <td>
+           @Html.ActionLink(document["_id"].ToString(), "View", "Document", new { database = database, collection = collection, document_id = document["_id"] }, null);
+       </td>
+   </tr>
+}
+</table>

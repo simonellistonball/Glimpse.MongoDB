@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Glimpse.Core.Extensibility;
+using Glimpse.Core.Extensions;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace Glimpse.MongoDB
 {
-    public class MongDBTab: ITab, ITabSetup, IDocumentation
+    public class MongoDBTab: ITab, ITabSetup, IDocumentation
     {
         /// <summary>
         /// Ensures that the mongo profiling is turned on, and that any Mongo connections are properly tracked
@@ -16,17 +18,14 @@ namespace Glimpse.MongoDB
         /// <param name="context"></param>
         public void Setup(ITabSetupContext context)
         {
-            throw new NotImplementedException();
         }
 
-        private class CommandData {
-            public string DocumentId { get; set; }
-        }
-        private class ServerData
+        public RuntimeEvent ExecuteOn
         {
-            public string Address { get; set; }
-            public bool Primary { get; set; }
-            public List<CommandData> Commands { get; set; }
+            get
+            {
+                return RuntimeEvent.EndRequest;
+            }
         }
 
         /// <summary>
@@ -36,32 +35,28 @@ namespace Glimpse.MongoDB
         /// <returns></returns>
         public object GetData(ITabContext context)
         {
-            var servers = GetAllServers();
-           
-            return servers;
-        }
-
-        private List<ServerData> GetAllServers()
-        {
-            var servers = new List<ServerData>();
-            foreach (MongoServer server in MongoServer.GetAllServers())
+            var cutOff = DateTime.UtcNow - TimeSpan.FromSeconds(15);
+            var results = new List<MongoProfileModel>();
+            foreach (var server in MongoServer.GetAllServers())
             {
-                var instance = server.Instance;
-
-                // get the details of the commands run on this server during the session
-
-                servers.Add(new ServerData
+                foreach (var database in server.GetDatabaseNames())
                 {
-                    Address = instance.Address.ToString(),
-                    Primary = instance.IsPrimary
-                });
+                    var db = server.GetDatabase(database);
+                    if (db.CollectionExists("system.profile"))
+                    {
+                        var query =
+                                from e in db.GetCollection("system.profile").FindAllAs<SystemProfileInfo>()
+                                where e.Namespace != database + ".system.profile" && e.Timestamp > cutOff
+                                select new MongoProfileModel(e);
+                        // skip one to miss the namespace query above
+                        foreach (var d in query.OrderByDescending(x => x.Timestamp).Skip(1).Take(10))
+                        {
+                            results.Add(d);
+                        }
+                    }
+                }
             }
-            return servers;
-        }
-
-        public RuntimeEvent ExecuteOn
-        {
-            get { return RuntimeEvent.EndRequest; }
+            return results;
         }
 
         public string Name

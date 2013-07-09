@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string database = ViewBag.database;
+    string collection = ViewBag.collection;
+}
+
+<h2>
+    @Html.ActionLink(database, "View", "Database", new { database = database }, null)
+    &raquo; 
+    @Html.ActionLink(collection, "View", "Collection", new { database = database, collection = collection }, null)
+    &raquo; 
+    @ViewBag.document["_id"]
+</h2>
+<div id="content"></div>
+<script>
+    function ISODate(input) { return input; }
+    var obj = @Html.Raw(ViewBag.document.ToString());
+    document.getElementById('content').innerHTML = "<pre>" + JSON.stringify(obj, null, 2) + "</pre>";
+</script>
+    
